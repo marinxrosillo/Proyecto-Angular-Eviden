@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="col" style="text-align: center;">
+        <h1>{{title}}</h1>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Director</th>
+                <th>Available</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let film of films">
+                <td>{{ film.id }}</td>
+                <td>{{ film.title }}</td>
+                <td>{{ film.director }}</td>
+                <td>{{ film.available }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
