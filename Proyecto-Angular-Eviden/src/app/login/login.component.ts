@@ -23,7 +23,7 @@ export class LoginComponent {
 
     this.loginService.login(this.creds)
     .subscribe(response => {
-      this.router.navigate(['films']);
+      this.router.navigate(['home']);
     })
   }
 }

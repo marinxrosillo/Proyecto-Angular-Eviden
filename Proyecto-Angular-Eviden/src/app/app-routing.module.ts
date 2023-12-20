@@ -7,10 +7,10 @@ import { FormClientComponent } from './form-client/form-client.component';
 import { FilmComponent } from './film/film.component';
 
 const routes: Routes = [
-  { path:'', component: HomeComponent, canActivate: [AuthGuard] },
-  { path:'login', component: LoginComponent },
-  { path:'form', component: FormClientComponent },
-  { path:'form/:id', component: FormClientComponent },
+  { path:'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path:'', component: LoginComponent },
+  { path:'form', component: FormClientComponent, canActivate: [AuthGuard] },
+  { path:'form/:id', component: FormClientComponent, canActivate: [AuthGuard] },
   { path:'films', component: FilmComponent, canActivate: [AuthGuard] },
 ];
 
