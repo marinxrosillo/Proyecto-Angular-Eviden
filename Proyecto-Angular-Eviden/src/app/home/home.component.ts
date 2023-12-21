@@ -11,7 +11,7 @@ import { LoginService } from '../service/login.service';
 })
 export class HomeComponent implements OnInit {
 
-  title = 'CLIENTS LIST';
+  title = 'CLIENT LIST';
 
   clients: Client[] = [];
   errorMessage: string | undefined;
