@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Client } from 'src/models/Client';
 import { ClientsService } from '../service/clients.service';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { LoginService } from '../service/login.service';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +11,15 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
 
-  title = 'Clients List';
+  title = 'CLIENTS LIST';
 
   clients: Client[] = [];
   errorMessage: string | undefined;
 
   constructor(
     private httpClient: HttpClient,
-    private clientService: ClientsService
+    private clientService: ClientsService,
+    private loginService: LoginService
   ) { }
 
   ngOnInit(): void {
@@ -25,12 +27,16 @@ export class HomeComponent implements OnInit {
   }
 
   delete(client: Client): void {
-    this.clientService.deleteClient(client.id).subscribe(
-      res => this.clientService.getAllClients().subscribe(
-        response => this.clients = response
-      )
-    )
-  }
+    const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar este cliente?');
+  
+    if (confirmDelete) {
+      this.clientService.deleteClient(client.id).subscribe(
+        res => this.clientService.getAllClients().subscribe(
+          response => this.clients = response
+        )
+      );
+    }
+  }  
 
   getData() {
     const httpOptions = {
@@ -51,10 +57,15 @@ export class HomeComponent implements OnInit {
           }
 
           this.clients = response.body;
+          this.clients = this.clients.sort((a, b) => a.id - b.id);
         },
         (error) => {
           this.errorMessage = error.message;
         }
       );
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 }

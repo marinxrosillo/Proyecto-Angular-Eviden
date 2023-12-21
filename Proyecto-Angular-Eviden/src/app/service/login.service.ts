@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs';
 import { Credentials } from 'src/models/Credentials';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,10 @@ import { Credentials } from 'src/models/Credentials';
 export class LoginService {
   private apiUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   login(creds: Credentials) {
     return this.http.post("http://localhost:8080/login", creds, {
@@ -27,19 +31,17 @@ export class LoginService {
     }))
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
-  }
-
-  saveToken(token: string): void {
-    localStorage.setItem('token', token);
+  logout() {
+    const confirmLogout = window.confirm('¿Estás seguro de que deseas cerrar sesión?');
+  
+    if (confirmLogout) {
+      localStorage.removeItem('token');
+  
+      this.router.navigate(['']);
+    }
   }
 
   getToken() {
     return localStorage.getItem('token');
-  }
-
-  isAuthenticated(): boolean {
-    return !!this.getToken();
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FilmService } from '../service/film.service';
+import { LoginService } from '../service/login.service';
 
 @Component({
   selector: 'app-movie-list',
@@ -8,11 +9,14 @@ import { FilmService } from '../service/film.service';
 })
 export class FilmComponent implements OnInit {
 
-  title: string = "Films List";
+  title: string = "FILM LIST";
 
   films: any[] = [];
 
-  constructor(private filmService: FilmService) {}
+  constructor(
+    private filmService: FilmService,
+    private loginService: LoginService
+  ) { }
 
   ngOnInit(): void {
     this.loadMovies();
@@ -27,5 +31,9 @@ export class FilmComponent implements OnInit {
         console.error('Error al obtener las películas:', error);
       }
     );
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 }

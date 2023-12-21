@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class FormClientComponent implements OnInit {
 
-  title: string = "Client Information";
+  title: string = "CLIENT INFORMATION";
 
   client: Client = new Client();
 
@@ -39,13 +39,13 @@ export class FormClientComponent implements OnInit {
 
   create(): void {
     this.clientService.createClient(this.client).subscribe(
-      response => this.router.navigate([''])
+      response => this.router.navigate(['home'])
     );
   }
 
   update(): void {
     this.clientService.updateClient(this.client).subscribe(
-      e => this.router.navigate([''])
+      e => this.router.navigate(['home'])
     );
   }
 }
